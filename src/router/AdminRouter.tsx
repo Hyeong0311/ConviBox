@@ -4,7 +4,7 @@ import {Navigate} from "react-router-dom";
 
 const AdminIndex = lazy(() => import("../page/admin/AdminIndex"))
 const AdminSignin = lazy(() => import("../page/admin/AdminPage"))
-const AdminList = lazy(() => import("../page/admin/AdminManagementPage"))
+const AdminManagement = lazy(() => import("../page/admin/AdminManagementPage"))
 
 
 
@@ -21,8 +21,8 @@ const AdminRouter = {
             element: <Navigate to='signin' replace={true}></Navigate>
         },
         {
-            path: "list",
-            element: <AdminList />
+            path: "management",
+            element: <AdminManagement />
         }
     ]
 };
