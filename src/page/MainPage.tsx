@@ -1,4 +1,4 @@
-import MainComponent from "../component/MainComponent.tsx";
+import MainComponent from "../components/MainComponent.tsx";
 
 function MainPage() {
     return (
