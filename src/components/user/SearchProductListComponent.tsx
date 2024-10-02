@@ -18,19 +18,20 @@ function SearchProductListComponent(): ReactElement {
     const [product, setProduct] = useState<IProducts>({...initialState})
     const navigate = useNavigate();
 
-    const query: string = searchParams.get("query") || ""
+    const query: string = searchParams.get("keyword") || ""
 
-    const host = 'http://1.255.178.102:8089/api/products/view/'
+    const host = 'http://1.255.178.102:8089/api/products/view/'     //이미지 확인용
 
     useEffect(() => {
 
         setLoading(true)
 
+        console.log(query)
+
         getSearchedList(query).then(product => {
 
             setProduct(product)
             setLoading(false)
-            console.log(product)
         })
     }, [query])
 
