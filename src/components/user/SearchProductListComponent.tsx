@@ -1,5 +1,5 @@
 import {ReactElement, useEffect, useState} from "react";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {getSearchedList} from "../../api/productAPI.ts";
 import {IProduct, IProducts} from "../../types/product.ts";
 import LoadingComponent from "../../common/LoadingComponent.tsx";
@@ -16,6 +16,7 @@ function SearchProductListComponent(): ReactElement {
     const [searchParams] = useSearchParams()
     const [loading, setLoading] = useState<boolean>(false)
     const [product, setProduct] = useState<IProducts>({...initialState})
+    const navigate = useNavigate();
 
     const query: string = searchParams.get("query") || ""
 
@@ -33,6 +34,14 @@ function SearchProductListComponent(): ReactElement {
         })
     }, [query])
 
+    const handleClick = (pno: number) => {
+
+        navigate({
+
+            pathname: '/recipe/' + pno
+        })
+    }
+
 
     return (
         <div>
@@ -42,7 +51,8 @@ function SearchProductListComponent(): ReactElement {
                 {product.dtoList.map((item: IProduct) => (
                     <div
                         key={item.pno}
-                        className="flex items-center space-x-5 bg-white p-5 rounded-full shadow-lg"
+                        className="flex items-center space-x-5 bg-white p-5 rounded-full shadow-lg cursor-pointer"
+                        onClick={() => handleClick(item.pno)}
                     >
                         {/* 이미지 박스 (임시 회색 배경) */}
                         <div className="h-24 w-24 bg-gray-200 rounded-full">
