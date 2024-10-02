@@ -15,7 +15,7 @@ function SearchProductListComponent(): ReactElement {
 
     return (
         <div>
-
+            {query}
         </div>
     );
 }
