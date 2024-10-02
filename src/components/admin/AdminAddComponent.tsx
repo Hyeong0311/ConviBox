@@ -1,10 +1,12 @@
 import {IProduct} from "../../types/product.ts";
-import {ChangeEvent, useCallback, useState} from "react";
+import {ChangeEvent, useCallback, useRef, useState} from "react";
+import {useMutation} from "@tanstack/react-query";
+import {postProduct} from "../../api/productAPI.ts";
 
 const initState:IProduct = {
     pname: '',
     pdesc: '',
-    price: 0,
+    price: '',
     keyword: '',
 
 }
@@ -12,18 +14,41 @@ const initState:IProduct = {
 function AdminAddComponent() {
 
     const [recipe, setRecipe] = useState<IProduct>({...initState});
+    const filesRef = useRef<HTMLInputElement>(null) // id,name을 사용하는 대신에
 
-    const handleChange = useCallback((e:ChangeEvent<HTMLInputElement>) => {
-        // react는 1way이므로 input 처리할때 state를 따로따로 만들어줘야하므로 이러한 방법을 사용하지않고, 하나의 객체로 사용하기 위해서 해당 이벤트를 사용한다.
+    const addMutation = useMutation({mutationFn:(formData) => postProduct(formData)})
 
-        // @ts-ignore
-        recipe[e.target.name] = e.target.value
-        setRecipe({...recipe})
-        console.log(recipe)
-    },[])
+    const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+
+        // 상태 업데이트
+        setRecipe((prev) => ({
+            ...prev,
+            [name]: name === 'price' ? parseFloat(value) || 0 : value, // 가격을 숫자로 변환
+        }));
+    }, []);
 
     const handleClickAdd = () => {
         console.log(recipe)
+
+        const files = filesRef?.current?.files // 등록한 파일에 대한 정보
+
+        const formData = new FormData() // 파일 업로드와 텍스트 데이터를 동시에 처리하기위해 일반적인 json객체를 사용할 수 없다.
+
+
+        formData.append("pname", recipe.pname)
+        formData.append("pdesc", recipe.pdesc)
+        formData.append("pdesc", recipe.pdesc)
+        formData.append("keyword", recipe.keyword || '')
+
+        if(files) {
+            for (let i = 0; i < files.length; i++) {
+                formData.append("files", files[i])
+            }
+        }
+
+        addMutation.mutate(formData)
+
     }
 
 
@@ -73,10 +98,14 @@ function AdminAddComponent() {
                                    onChange={e => handleChange(e)}/>
                         </li>
 
+                        <li className="mb-4 w-full">
+                            <label htmlFor="files" className="block mb-1">files</label>
+                            <input type='file' ref={filesRef} name='files' multiple={true}/>
+                        </li>
                     </ul>
 
                     <div className="flex justify-end w-full">
-                        <button className="bg-green-600 text-white hover:bg-green-700 transition duration-300 py-2 px-4 rounded-md"
+                    <button className="bg-green-600 text-white hover:bg-green-700 transition duration-300 py-2 px-4 rounded-md"
                         onClick={() => handleClickAdd()}>
                             ADD
                         </button>
