@@ -5,7 +5,7 @@ function SearchListPage(): ReactElement {
     return (
 
         <div>
-            <div>Search List Page</div>
+
             <SearchProductListComponent></SearchProductListComponent>
         </div>
 

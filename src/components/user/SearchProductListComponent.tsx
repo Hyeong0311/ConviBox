@@ -30,23 +30,30 @@ function SearchProductListComponent(): ReactElement {
         })
     }, [query])
 
-    const listLI = product.dtoList?.map((item: IProduct) => {
-
-        return (
-            <li key={item.pno}>{item.pname} - {item.pdesc} - {item.price}</li>
-        )
-    })
-
 
     return (
         <div>
             {loading && <LoadingComponent></LoadingComponent>}
 
-            <ul>
-                {listLI}
-            </ul>
+            <div className="w-full max-w-lg mx-auto mt-10 space-y-6">
+                {product.dtoList.map((item: IProduct) => (
+                    <div
+                        key={item.pno}
+                        className="flex items-center space-x-5 bg-white p-5 rounded-full shadow-lg"
+                    >
+                        {/* 이미지 박스 (임시 회색 배경) */}
+                        <div className="h-24 w-24 bg-gray-200 rounded-full"></div>
+
+                        {/* 제품 정보 */}
+                        <div className="flex-1">
+                            <div className="font-bold text-xl">{item.pname}</div>
+                            <div className="text-gray-500 text-lg">{item.price}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
-    );
+    )
 }
 
 export default SearchProductListComponent;

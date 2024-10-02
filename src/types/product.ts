@@ -6,7 +6,7 @@ export interface IProduct {
     pdesc: string
     price: number
     keyword?: string
-
+    uploadFileNames?: string[]
 }
 
 export interface IProducts {
