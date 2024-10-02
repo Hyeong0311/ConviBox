@@ -4,7 +4,6 @@ function AdminPage() {
     return (
         <>
             <div>
-                <div>admin page</div>
                 <AdminComponent/>
             </div>
         </>
