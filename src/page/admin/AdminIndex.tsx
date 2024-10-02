@@ -1,5 +1,5 @@
 import AdminLayout from "../../layout/AdminLayout.tsx";
-import {Link, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 
 function AdminIndex() {
     return (
