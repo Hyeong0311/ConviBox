@@ -1,21 +1,50 @@
-import {ReactElement} from "react";
-import {useParams} from "react-router-dom";
+import {ReactElement, useEffect, useState} from "react";
+import {useSearchParams} from "react-router-dom";
 import {getSearchedList} from "../../api/productAPI.ts";
+import {IProduct, IProducts} from "../../types/product.ts";
+import LoadingComponent from "../../common/LoadingComponent.tsx";
+
+
+const initialState: IProducts = {
+
+    dtoList: []
+}
 
 
 function SearchProductListComponent(): ReactElement {
 
-    const {query} = useParams()
+    const [searchParams] = useSearchParams()
+    const [loading, setLoading] = useState<boolean>(false)
+    const [product, setProduct] = useState<IProducts>({...initialState})
 
-    getSearchedList(query).then(product => {
+    const query: string = searchParams.get("query") || ""
 
-        console.log(product)
+    useEffect(() => {
+
+        setLoading(true)
+
+        getSearchedList(query).then(product => {
+
+            setProduct(product)
+            setLoading(false)
+        })
+    }, [query])
+
+    const listLI = product.dtoList?.map((item: IProduct) => {
+
+        return (
+            <li key={item.pno}>{item.pname} - {item.pdesc} - {item.price}</li>
+        )
     })
 
 
     return (
         <div>
-            {query}
+            {loading && <LoadingComponent></LoadingComponent>}
+
+            <ul>
+                {listLI}
+            </ul>
         </div>
     );
 }

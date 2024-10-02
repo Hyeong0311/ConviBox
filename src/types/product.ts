@@ -8,3 +8,8 @@ export interface IProduct {
     keyword?: string
 
 }
+
+export interface IProducts {
+
+    dtoList: IProduct[]
+}
