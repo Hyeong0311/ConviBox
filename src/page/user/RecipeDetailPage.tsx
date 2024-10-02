@@ -9,7 +9,6 @@ function RecipeDetailPage(): ReactElement {
     return (
 
         <div>
-            <div>Recipe Detail Page</div>
             <RecipeDetailComponent></RecipeDetailComponent>
         </div>
     )

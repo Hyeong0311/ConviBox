@@ -15,6 +15,14 @@ function MainLayout({ children }: { children: React.ReactNode }) {
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
 
+    const goMainClick = () => {
+
+        navigate({
+
+            pathname: '/'
+        })
+    }
+
     return (
         <>
             {modalOpen && <SearchModalComponent onClose={closeModal}></SearchModalComponent>}
@@ -36,7 +44,7 @@ function MainLayout({ children }: { children: React.ReactNode }) {
                 </div>
 
                 {/* 중앙 로고 및 텍스트 */}
-                <div className="text-center">
+                <div className="text-center" onClick={goMainClick}>
                     <h1 className="text-white text-3xl font-bold">ConviBox</h1>
                     <p className="text-white text-sm">편의점 재료로 완성하는 우리의 레시피</p>
                 </div>
