@@ -28,38 +28,36 @@ const ProductListComponent: React.FC = () => {
         { image: '/test3.png', name: '우도땅콩바나나', price: '4,400원' },
         { image: '/test1.png', name: '제주레몬망고스무디', price: '4,400원' },
         { image: '/test2.png', name: '제주당근오렌지티', price: '4,400원' },
-
-
         // 더 많은 제품들 추가 가능
     ];
 
     return (
         <div className="p-4">
             <h2 className="text-lg font-bold mb-4">3천원 이하</h2>
-            <div className="flex space-x-4 overflow-x-scroll pb-4">
+            <div className="flex space-x-4 overflow-x-auto pb-4">
                 {products.map((product, index) => (
-                    <ProductCard key={index} image={product.image} name={product.name} price={product.price}/>
+                    <ProductCard key={index} image={product.image} name={product.name} price={product.price} />
                 ))}
             </div>
 
             <h2 className="text-lg font-bold mb-4">5천원 이하</h2>
-            <div className="flex space-x-4 overflow-x-scroll pb-4">
+            <div className="flex space-x-4 overflow-x-auto pb-4">
                 {products.map((product, index) => (
-                    <ProductCard key={index} image={product.image} name={product.name} price={product.price}/>
+                    <ProductCard key={index} image={product.image} name={product.name} price={product.price} />
                 ))}
             </div>
 
             <h2 className="text-lg font-bold mb-4">1만원 이하</h2>
-            <div className="flex space-x-4 overflow-x-scroll pb-4">
+            <div className="flex space-x-4 overflow-x-auto pb-4">
                 {products.map((product, index) => (
-                    <ProductCard key={index} image={product.image} name={product.name} price={product.price}/>
+                    <ProductCard key={index} image={product.image} name={product.name} price={product.price} />
                 ))}
             </div>
 
             <h2 className="text-lg font-bold mb-4">1만원 이상</h2>
-            <div className="flex space-x-4 overflow-x-scroll pb-4">
+            <div className="flex space-x-4 overflow-x-auto pb-4">
                 {products.map((product, index) => (
-                    <ProductCard key={index} image={product.image} name={product.name} price={product.price}/>
+                    <ProductCard key={index} image={product.image} name={product.name} price={product.price} />
                 ))}
             </div>
         </div>
