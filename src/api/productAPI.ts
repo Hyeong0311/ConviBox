@@ -7,7 +7,7 @@ const host = 'http://1.255.178.102:8089/api/products'
 
 export const getSearchedList = async (query: string): Promise<IProducts> => {
 
-    const res = await axios.get<IProducts>(`${host}/list?query=${query}`)
+    const res = await axios.get<IProducts>(`${host}/list?keyword=${query}`)
 
     return res.data
 }

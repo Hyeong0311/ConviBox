@@ -1,5 +1,5 @@
 import {ReactElement, useState} from "react";
-import {createSearchParams, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 interface LoadingComponentProps {
@@ -22,11 +22,11 @@ function SearchModalComponent({onClose}: LoadingComponentProps): ReactElement {
 
     const handleClick = () => {
 
-        const queryStr = createSearchParams({ query: searchKeyword }).toString();
+        const queryStr = `?keyword=${searchKeyword}`;
 
         navigate({
             pathname: '/search',
-            search: `${queryStr}`
+            search: queryStr
         })
         onClose()
     }
