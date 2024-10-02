@@ -1,9 +1,10 @@
 import AdminListComponent from "../../components/admin/AdminListComponent.tsx";
+import AdminProductComponent from "../../components/admin/AdminProductComponent.tsx";
 function AdminManagementPage() {
     return (
-        <div>
-            <h1>Admin Management Page</h1>
+        <div className="flex h-screen p-4">
             <AdminListComponent/>
+            <AdminProductComponent/>
         </div>
     );
 }

@@ -1,15 +1,20 @@
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {startTransition} from "react";
+import AdminListComponent from "../components/admin/AdminListComponent.tsx";
 
 function AdminLayout({ children }: { children: React.ReactNode }) {
 
     const navigate = useNavigate();
+
+    const location = useLocation();
 
     const handleExit = () => {
         startTransition(() => {
             navigate('/');
         });
     };
+
+
     return (
         <>
             <header className="bg-yellow-500">
@@ -27,9 +32,7 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
                 </nav>
             </header>
             <div className='flex w-full h-full'>
-                {/*<aside className="w-1/4 p-4 bg-yellow-100">*/}
-                {/*    <p>Sidebar</p>*/}
-                {/*</aside>*/}
+                {location.pathname === '/management' && <AdminListComponent></AdminListComponent>}
                 <main className="flex-1 p-4">{children}</main>
             </div>
         </>
