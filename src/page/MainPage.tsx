@@ -1,11 +1,16 @@
-import MainComponent from "../components/MainComponent.tsx";
+import React from 'react';
+import MainComponent from '../component/MainComponent'; // 경로는 유지
+import MainLayout from '../layout/MainLayout'; // 헤더 컴포넌트 경로
 
 function MainPage() {
     return (
-        <div>
-            <div>Main Page</div>
-            <MainComponent></MainComponent>
-        </div>
+        <>
+            <MainLayout /> {/* 헤더 컴포넌트 */}
+            <div>
+                <h1>Main Page</h1>
+                <MainComponent /> {/* 본문 컴포넌트 */}
+            </div>
+        </>
     );
 }
 
