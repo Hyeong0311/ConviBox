@@ -1,9 +1,17 @@
-function RecipeDetailPage() {
+import {ReactElement} from "react";
+import RecipeDetailComponent from "../../components/user/RecipeDetailComponent.tsx";
+
+
+function RecipeDetailPage(): ReactElement {
+
+
+
     return (
+
         <div>
-            Recipe Detail Page
+            <RecipeDetailComponent></RecipeDetailComponent>
         </div>
-    );
+    )
 }
 
 export default RecipeDetailPage;

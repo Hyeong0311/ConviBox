@@ -7,6 +7,7 @@ export interface IProduct {
     price: number
     keyword?: string
     uploadFileNames?: string[]
+    files?: File[]
 }
 
 export interface IProducts {
