@@ -1,14 +1,9 @@
-
+import {ReactElement} from "react";
 import ProductListComponent from "../../components/user/ProductListComponent.tsx";
 
-function MainPage() {
+function MainPage():ReactElement {
     return (
-        <>
-            <div>
-                <h1>Main Page</h1>
-                <ProductListComponent /> {/* 본문 컴포넌트 */}
-            </div>
-        </>
+        <ProductListComponent></ProductListComponent>
     );
 }
 
