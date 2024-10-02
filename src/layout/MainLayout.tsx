@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import SearchModalComponent from "../components/user/SearchModalComponent.tsx";
 
-const MainLayout: React.FC = () => {
+function MainLayout({ children }: { children: React.ReactNode }) {
 
     const [modalOpen, setModalOpen] = useState(false)
 
@@ -35,6 +35,12 @@ const MainLayout: React.FC = () => {
                     <img src="../../public/ion--cart-outline.svg" alt="카트" style={{width: '24px', height: '24px'}}/>
                 </div>
             </header>
+            <div className='flex w-full h-full'>
+                {/*<aside className="w-1/4 p-4 bg-yellow-100">*/}
+                {/*    <p>Sidebar</p>*/}
+                {/*</aside>*/}
+                <main className="flex-1 p-4">{children}</main>
+            </div>
         </>
     );
 };
