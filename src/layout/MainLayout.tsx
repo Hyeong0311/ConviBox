@@ -1,23 +1,38 @@
-import React, {useState} from 'react';
+import React, {startTransition, useState} from 'react';
+import { useLocation, useNavigate } from 'react-router-dom'; // 경로 확인 및 navigate 사용을 위해 import
 import SearchModalComponent from "../components/user/SearchModalComponent.tsx";
 
 function MainLayout({ children }: { children: React.ReactNode }) {
+    const [modalOpen, setModalOpen] = useState(false);
+    const location = useLocation(); // 현재 경로 가져오기
+    const navigate = useNavigate();  // 페이지 이동을 위한 navigate
+    const clickadmin = () => {
+        startTransition(() => {
+            navigate('/admin');
+        });
+    };
 
-    const [modalOpen, setModalOpen] = useState(false)
-
-    const openModal = () => setModalOpen(true)
-    const closeModal = () => setModalOpen(false)
-
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
 
     return (
-
         <>
             {modalOpen && <SearchModalComponent onClose={closeModal}></SearchModalComponent>}
 
             <header className="bg-[#f9bd03] flex items-center justify-between px-4 py-3">
-                {/* 뒤로가기 버튼 */}
-                <div className="flex items-center">
-                    <img src="../../public/weui--back-filled.svg" alt="뒤로가기" style={{width: '24px', height: '24px'}}/>
+                {/* 뒤로가기 버튼과 Admin 버튼 */}
+                <div className="flex items-center space-x-2">
+                    <img src="/weui--back-filled.svg" alt="뒤로가기" style={{ width: '24px', height: '24px' }} />
+
+                    {/* 현재 경로가 "/"(MainPage)일 때만 admin 버튼 보여주기 */}
+                    {location.pathname === "/" && (
+                        <button
+                            className="bg-blue-500 text-white px-3 py-1 rounded"
+                            onClick={clickadmin}
+                        >
+                            Admin
+                        </button>
+                    )}
                 </div>
 
                 {/* 중앙 로고 및 텍스트 */}
@@ -28,21 +43,19 @@ function MainLayout({ children }: { children: React.ReactNode }) {
 
                 {/* 검색 및 카트 아이콘 */}
                 <div className="flex items-center space-x-4">
-                    <img src="../../public/fluent--box-search-24-regular.svg"
+                    <img src="/fluent--box-search-24-regular.svg"
                          alt="검색"
                          onClick={openModal}
-                         style={{width: '24px', height: '24px'}}/>
-                    <img src="../../public/ion--cart-outline.svg" alt="카트" style={{width: '24px', height: '24px'}}/>
+                         style={{ width: '24px', height: '24px' }}/>
+                    <img src="/ion--cart-outline.svg" alt="카트" style={{ width: '24px', height: '24px' }}/>
                 </div>
             </header>
+
             <div className='flex w-full h-full'>
-                {/*<aside className="w-1/4 p-4 bg-yellow-100">*/}
-                {/*    <p>Sidebar</p>*/}
-                {/*</aside>*/}
                 <main className="flex-1 p-4">{children}</main>
             </div>
         </>
     );
-};
+}
 
 export default MainLayout;
