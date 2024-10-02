@@ -6,6 +6,7 @@ function SearchListPage(): ReactElement {
     return (
         <>
             <MainLayout></MainLayout>
+            <div>Search List Page</div>
             <SearchProductListComponent></SearchProductListComponent>
         </>
 
