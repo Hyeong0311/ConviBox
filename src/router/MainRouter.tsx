@@ -3,7 +3,7 @@ import {lazy} from "react";
 import AdminRouter from "./AdminRouter.tsx";
 
 
-const MainPage = lazy(() => import("../page/MainPage"));
+const MainPage = lazy(() => import("../page/user/MainPage.tsx"));
 
 const MainRouter = createBrowserRouter([
     {
