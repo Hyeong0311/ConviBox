@@ -1,12 +1,23 @@
+import {useNavigate} from "react-router-dom";
+import {startTransition} from "react";
 
 function AdminProductComponent() {
+
+    const navigate = useNavigate();
+
+    const handleClickMoveAdd = () => {
+        startTransition(() => {
+            navigate("/admin/add");
+        });
+    }
     return (
 
         <div className="w-2/3 p-4 h-full">
             <div className="flex justify-between items-center mb-4">
                 <h2 className='font-bold'></h2>
                 <button
-                    className="bg-green-600 text-white hover:bg-blue-600 transition duration-300 py-2 px-4 rounded-md">
+                    className="bg-green-600 text-white hover:bg-blue-600 transition duration-300 py-2 px-4 rounded-md"
+                onClick={() => handleClickMoveAdd()}>
                     ADD
                 </button>
             </div>
