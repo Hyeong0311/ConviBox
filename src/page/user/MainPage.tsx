@@ -1,6 +1,5 @@
-
-import MainComponent from '../components/user/MainComponent.tsx'; // 경로는 유지
-import MainLayout from '../layout/MainLayout'; // 헤더 컴포넌트 경로
+import MainComponent from "../../components/user/MainComponent.tsx";
+import MainLayout from "../../layout/MainLayout.tsx";
 
 function MainPage() {
     return (
