@@ -1,5 +1,5 @@
-import React from 'react';
-import MainComponent from '../component/MainComponent'; // 경로는 유지
+
+import MainComponent from '../components/MainComponent'; // 경로는 유지
 import MainLayout from '../layout/MainLayout'; // 헤더 컴포넌트 경로
 
 function MainPage() {
