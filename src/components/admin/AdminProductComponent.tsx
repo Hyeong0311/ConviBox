@@ -1,35 +1,18 @@
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {startTransition} from "react";
-import {useSelector} from "react-redux";
-import {selectSelectedItem} from "../../slice/ProductSlice.ts";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { startTransition } from "react";
+import { setRecipeName, setDescription, setPrice, setKeywords, setImage, clearImage } from '../../productSlice';
+import {IRootState} from "../../types/product.ts"; // 경로 조정 필요
 
 function AdminProductComponent() {
-
     const navigate = useNavigate();
-    const selectedItem = useSelector(selectSelectedItem)
+    const dispatch = useDispatch();
 
-    const [productDetails, setProductDetails] = useState({
-        recipeName: "",
-        description: "",
-        price: "",
-        keywords: "",
-        image: null as File | null,
-    });
-
-    useEffect(() => {
-        if (selectedItem) {
-            setProductDetails({
-                recipeName: selectedItem.name,
-                description: selectedItem.desc,
-                price: String(selectedItem.price),
-                keywords: selectedItem.keyword,
-                image: null,
-            });
-        }
-    }, [selectedItem]);
-
-    const { recipeName, description, price, keywords, image } = productDetails;
+    const recipeName = useSelector((state: IRootState) => state.product.pname);
+    const description = useSelector((state: IRootState) => state.product.pdesc);
+    const price = useSelector((state: IRootState) => state.product.price);
+    const keywords = useSelector((state: IRootState) => state.product.keyword);
+    const image = useSelector((state: IRootState) => state.product.image);
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
@@ -37,46 +20,31 @@ function AdminProductComponent() {
         });
     };
 
-
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setProductDetails((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setProductDetails((prev) => ({
-                ...prev,
-                image: e.target.files[0],
-            }));
+            dispatch(setImage(e.target.files[0]));
         }
     };
 
     const handleRemoveImage = () => {
-        setProductDetails((prev) => ({
-            ...prev,
-            image: null,
-        }));
+        dispatch(clearImage());
     };
 
-    const demobutton = () => {
+    const handleClickModify = () => {
+
         console.log(recipeName)
+        console.log(description)
+        console.log(price)
+        console.log(keywords)
+        console.log(image)
     }
+
 
     return (
         <div className="w-2/3 p-4 h-full">
             {/* 상단 버튼 */}
             <div className="flex justify-between items-center mb-4">
                 <h2 className='font-bold text-xl'>Product Manager</h2>
-                <button
-                onClick={() => demobutton()}>
-
-                    demo
-                </button>
                 <button
                     className="bg-green-600 text-white hover:bg-blue-600 transition duration-300 py-2 px-4 rounded-md"
                     onClick={handleClickMoveAdd}>
@@ -94,9 +62,8 @@ function AdminProductComponent() {
                         <label className="font-semibold text-gray-800">Recipe Name:</label>
                         <input
                             type="text"
-                            name="recipeName" // name 속성 추가
                             value={recipeName}
-                            onChange={handleInputChange}
+                            onChange={(e) => dispatch(setRecipeName(e.target.value))}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter recipe name"
                         />
@@ -106,9 +73,8 @@ function AdminProductComponent() {
                     <li className="w-full">
                         <label className="font-semibold text-gray-800">Description:</label>
                         <textarea
-                            name="description" // name 속성 추가
                             value={description}
-                            onChange={handleInputChange}
+                            onChange={(e) => dispatch(setDescription(e.target.value))}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter recipe description"
                             rows={4}
@@ -120,12 +86,11 @@ function AdminProductComponent() {
                         <label className="font-semibold text-gray-800">Price:</label>
                         <input
                             type="text"
-                            name="price" // name 속성 추가
                             value={price}
                             onChange={(e) => {
                                 const value = e.target.value;
                                 if (/^\d*$/.test(value)) {
-                                    handleInputChange(e);
+                                    dispatch(setPrice(value));
                                 }
                             }}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
@@ -138,9 +103,8 @@ function AdminProductComponent() {
                         <label className="font-semibold text-gray-800">Keywords:</label>
                         <input
                             type="text"
-                            name="keywords" // name 속성 추가
                             value={keywords}
-                            onChange={handleInputChange}
+                            onChange={(e) => dispatch(setKeywords(e.target.value))}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter keywords (comma separated)"
                         />
@@ -173,7 +137,9 @@ function AdminProductComponent() {
             {/* 하단 버튼 */}
             <div className="flex justify-end mt-4">
                 <button
-                    className="bg-blue-600 text-white hover:bg-blue-700 transition duration-300 py-2 px-4 rounded-md mr-2">
+                    className="bg-blue-600 text-white hover:bg-blue-700 transition duration-300 py-2 px-4 rounded-md mr-2"
+                    onClick={handleClickModify}
+                >
                     Modify
                 </button>
                 <button className="bg-red-600 text-white hover:bg-red-700 transition duration-300 py-2 px-4 rounded-md">

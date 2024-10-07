@@ -23,6 +23,10 @@ function MainLayout({ children }: { children: React.ReactNode }) {
         })
     }
 
+    const goToCart = () => {
+        navigate('/cart');
+    };
+
     return (
         <>
             {modalOpen && <SearchModalComponent onClose={closeModal}></SearchModalComponent>}
@@ -30,12 +34,12 @@ function MainLayout({ children }: { children: React.ReactNode }) {
             <header className="bg-[#f9bd03] flex items-center justify-between px-4 py-3">
                 {/* 뒤로가기 버튼과 Admin 버튼 */}
                 <div className="flex items-center space-x-2">
-                    <img src="/weui--back-filled.svg" alt="뒤로가기" style={{ width: '24px', height: '24px' }} />
+                    <img src="/weui--back-filled.svg" alt="뒤로가기" style={{ width: '48px', height: '48px', cursor: 'pointer' }} />
 
                     {/* 현재 경로가 "/"(MainPage)일 때만 admin 버튼 보여주기 */}
                     {location.pathname === "/" && (
                         <button
-                            className="bg-blue-500 text-white px-3 py-1 rounded"
+                            className="bg-[#f8c300] text-white px-3 py-1 rounded"
                             onClick={clickadmin}
                         >
                             Admin
@@ -44,7 +48,7 @@ function MainLayout({ children }: { children: React.ReactNode }) {
                 </div>
 
                 {/* 중앙 로고 및 텍스트 */}
-                <div className="text-center" onClick={goMainClick}>
+                <div className="text-left" onClick={goMainClick} style={{ cursor: 'pointer' }}>
                     <h1 className="text-white text-3xl font-bold">ConviBox</h1>
                     <p className="text-white text-sm">편의점 재료로 완성하는 우리의 레시피</p>
                 </div>
@@ -54,8 +58,11 @@ function MainLayout({ children }: { children: React.ReactNode }) {
                     <img src="/fluent--box-search-24-regular.svg"
                          alt="검색"
                          onClick={openModal}
-                         style={{ width: '24px', height: '24px' }}/>
-                    <img src="/ion--cart-outline.svg" alt="카트" style={{ width: '24px', height: '24px' }}/>
+                         style={{ width: '48px', height: '48px', cursor: 'pointer' }}/>
+                    <img src="/ion--cart-outline.svg"
+                         alt="카트"
+                         onClick={goToCart}
+                         style={{ width: '48px', height: '48px', cursor: 'pointer' }}/>
                 </div>
             </header>
 

@@ -1,15 +1,13 @@
-import {useEffect, useState} from "react";
-import {IProduct} from "../../types/product.ts";
-import {getList} from "../../api/productAPI.ts";
-import {useDispatch} from "react-redux";
-import {setSelectedItem} from "../../slice/ProductSlice.ts";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux"; // Redux Dispatch 가져오기
+import { IProduct } from "../../types/product.ts";
+import { getList } from "../../api/productAPI.ts";
+import { setRecipeName, setDescription, setPrice, setKeywords } from "../../productSlice"; // 액션 임포트
 
 function AdminListComponent() {
-
+    const dispatch = useDispatch(); // Dispatch 초기화
     const [selectPrice, setSelectPrice] = useState("option0");
     const [itemList, setItemList] = useState<IProduct[]>([]);
-    const dispatch = useDispatch();
-
 
     useEffect(() => {
         const fetchItems = async() => {
@@ -18,7 +16,7 @@ function AdminListComponent() {
             const filterItems = data.dtoList.filter((result) => {
                 switch (selectPrice) {
                     case "option0":
-                        return result.price <= 3000
+                        return result.price <= 3000;
                     case "option1":
                         return result.price >= 3000 && result.price < 5000;
                     case "option2":
@@ -28,25 +26,21 @@ function AdminListComponent() {
                     default:
                         return true;
                 }
-            })
-            setItemList(filterItems)
-        }
-        fetchItems()
+            });
+            setItemList(filterItems);
+        };
+        fetchItems();
     }, [selectPrice]);
 
-    const handleClickItem = (item: IProduct) => {
-        // 선택된 아이템을 스토어에 저장
-        dispatch(setSelectedItem({
-            name: item.pname,
-            desc: item.pdesc,
-            price: item.price,
-            keyword: item.keyword,
-            image: item.image
-        }));
+    const handleClickDesc = (item: IProduct) => {
+        dispatch(setDescription(item.pdesc)); // 설명 저장
+        dispatch(setRecipeName(item.pname)); // 이름 저장
+        dispatch(setPrice(item.price.toString())); // 가격 저장
+        if (item.keyword != null) {
+            dispatch(setKeywords(item.keyword));
+        } // 키워드 저장 (필요한 경우)
+        console.log(item.pdesc); // 콘솔 출력
     };
-
-
-
 
     return (
         <div className="w-1/4 h-full p-4">
@@ -56,7 +50,7 @@ function AdminListComponent() {
                 <select
                     className="p-3 border border-gray-300 rounded-xl w-full focus:outline-none focus:ring-4 focus:ring-yellow-400 transition-all"
                     value={selectPrice}
-                    onChange={(e) => setSelectPrice(e.target.value)} // 선택 변경 시 상태 업데이트
+                    onChange={(e) => setSelectPrice(e.target.value)}
                 >
                     <option value="option0">3천원 이하</option>
                     <option value="option1">5천원 이하</option>
@@ -75,7 +69,7 @@ function AdminListComponent() {
                         itemList.map((item) => (
                             <li
                                 key={item.pno}
-                                onClick={() => handleClickItem(item)}
+                                onClick={() => handleClickDesc(item)}
                                 className="w-full p-3 bg-white rounded-xl shadow-lg text-gray-800 cursor-pointer text-center transition-all transform hover:scale-105 hover:bg-[#f8c300] hover:shadow-xl hover:text-white"
                             >
                                 {item.pname}
