@@ -21,6 +21,7 @@ function ProductListComponent(): ReactElement {
         const host = 'http://1.255.178.102:8089/api/products/view/';
 
         return (
+
             <div
                 className="min-w-[150px] max-w-[150px] bg-white shadow-lg rounded-lg p-4 min-h-[200px]"
                 onClick={() => productClick(product.pno)}>
@@ -38,8 +39,11 @@ function ProductListComponent(): ReactElement {
     };
 
     useEffect(() => {
+
         setLoading(true);
+
         getList().then(item => {
+
             setProducts(item);
             setLoading(false);
         });
@@ -51,6 +55,7 @@ function ProductListComponent(): ReactElement {
     const over10000: IProduct[] = [];
 
     products.dtoList.forEach((product) => {
+
         if (product.price < 3000) {
             under3000.push(product);
         } else if (product.price >= 3000 && product.price < 5000) {
@@ -63,6 +68,7 @@ function ProductListComponent(): ReactElement {
     });
 
     const productClick = (pno: number) => {
+
         navigate(`/recipe/${pno}`);
     };
 
@@ -72,35 +78,40 @@ function ProductListComponent(): ReactElement {
 
             {loading && <LoadingComponent></LoadingComponent>}
 
-            <h2 className="text-lg font-bold mb-4">3천원 이하</h2>
-            <div className="flex space-x-4 overflow-x-auto pb-4">
-                {under3000.map((product, index) => (
-                    <ProductCard key={index} product={product} />
-                ))}
-            </div>
+            {!loading && <>
 
-            <h2 className="text-lg font-bold mb-4">5천원 이하</h2>
-            <div className="flex space-x-4 overflow-x-auto pb-4">
-                {over3000.map((product, index) => (
-                    <ProductCard key={index} product={product} />
-                ))}
-            </div>
+                <h2 className="text-lg font-bold mb-4">3천원 이하</h2>
+                <div className="flex space-x-4 overflow-x-auto pb-4">
+                    {under3000.map((product, index) => (
+                        <ProductCard key={index} product={product}/>
+                    ))}
+                </div>
 
-            <h2 className="text-lg font-bold mb-4">1만원 이하</h2>
-            <div className="flex space-x-4 overflow-x-auto pb-4">
-                {over5000.map((product, index) => (
-                    <ProductCard key={index} product={product} />
-                ))}
-            </div>
+                <h2 className="text-lg font-bold mb-4">5천원 이하</h2>
+                <div className="flex space-x-4 overflow-x-auto pb-4">
+                    {over3000.map((product, index) => (
+                        <ProductCard key={index} product={product}/>
+                    ))}
+                </div>
 
-            <h2 className="text-lg font-bold mb-4">1만원 이상</h2>
-            <div className="flex space-x-4 overflow-x-auto pb-4">
-                {over10000.map((product, index) => (
-                    <ProductCard key={index} product={product} />
-                ))}
-            </div>
+                <h2 className="text-lg font-bold mb-4">1만원 이하</h2>
+                <div className="flex space-x-4 overflow-x-auto pb-4">
+                    {over5000.map((product, index) => (
+                        <ProductCard key={index} product={product}/>
+                    ))}
+                </div>
+
+                <h2 className="text-lg font-bold mb-4">1만원 이상</h2>
+                <div className="flex space-x-4 overflow-x-auto pb-4">
+                    {over10000.map((product, index) => (
+                        <ProductCard key={index} product={product}/>
+                    ))}
+                </div>
+
+                </>}
+
         </div>
     );
-};
+}
 
 export default ProductListComponent;
