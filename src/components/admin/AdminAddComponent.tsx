@@ -60,59 +60,75 @@ function AdminAddComponent() {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            {isModalOpen && <AddCompleteComponent message={'등록완료'} onClick={closeCallback} />}
-            <div className="w-1/2 h-4/5 p-4">
-                <aside className="h-full p-4 bg-[#ffb400] rounded-lg flex flex-col items-center justify-between">
-                    <p className='font-bold'>상품추가</p>
-                    <ul className="flex flex-col items-center w-full">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            {isModalOpen && <AddCompleteComponent message={'등록완료'} onClick={closeCallback}/>}
+            <div className="w-full max-w-md h-auto p-6 shadow-lg rounded-lg bg-[#f8c300]"> {/* 화면 침범을 방지하도록 크기를 줄임 */}
+                <aside className="w-full p-4 bg-[#f8c300] rounded-lg flex flex-col items-center justify-between">
+                    <p className="font-bold text-2xl text-gray-800 mb-4">상품 추가</p>
+                    <ul className="flex flex-col items-center w-full space-y-4">
 
-                        <li className="mb-4 w-full">
-                            <label htmlFor="name" className="block mb-1">Name</label>
+                        <li className="w-full">
+                            <label htmlFor="name" className="block mb-1 font-semibold text-gray-800">Name</label>
                             <input
-                                type='text'
-                                name='pname'
-                                className="p-2 border rounded w-full"
+                                type="text"
+                                name="pname"
+                                className="p-2 border rounded-lg w-full focus:outline-none focus:ring-4 focus:ring-yellow-300 focus:border-yellow-500 transition-all"
                                 value={recipe.pname}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                                placeholder="Enter product name"
+                            />
                         </li>
 
-                        <li className="mb-4 w-full">
-                            <label htmlFor="pdesc" className="block mb-1">Description</label>
+                        <li className="w-full">
+                            <label htmlFor="pdesc"
+                                   className="block mb-1 font-semibold text-gray-800">Description</label>
                             <textarea
-                                name='pdesc'
-                                className="p-2 border rounded w-full h-32 resize-none"
+                                name="pdesc"
+                                className="p-2 border rounded-lg w-full h-24 resize-none focus:outline-none focus:ring-4 focus:ring-yellow-300 focus:border-yellow-500 transition-all"
                                 value={recipe.pdesc}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                                placeholder="Enter product description"
+                            />
                         </li>
 
-                        <li className="mb-4 w-full">
-                            <label htmlFor="price" className="block mb-1">Price</label>
+                        <li className="w-full">
+                            <label htmlFor="price" className="block mb-1 font-semibold text-gray-800">Price</label>
                             <input
-                                type='text'
-                                name='price'
-                                className="p-2 border rounded w-full"
+                                type="text"
+                                name="price"
+                                className="p-2 border rounded-lg w-full focus:outline-none focus:ring-4 focus:ring-yellow-300 focus:border-yellow-500 transition-all"
                                 value={recipe.price}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                                placeholder="Enter price"
+                            />
                         </li>
 
-                        <li className="mb-4 w-full">
-                            <label htmlFor="keyword" className="block mb-1">Keyword</label>
+                        <li className="w-full">
+                            <label htmlFor="keyword" className="block mb-1 font-semibold text-gray-800">Keyword</label>
                             <input
-                                type='text'
-                                name='keyword'
-                                className="p-2 border rounded w-full"
+                                type="text"
+                                name="keyword"
+                                className="p-2 border rounded-lg w-full focus:outline-none focus:ring-4 focus:ring-yellow-300 focus:border-yellow-500 transition-all"
                                 value={recipe.keyword}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                                placeholder="Enter keyword"
+                            />
                         </li>
 
-                        <li className="mb-4 w-full">
-                            <label htmlFor="files" className="block mb-1">Files</label>
-                            <input type='file' ref={filesRef} name='files' multiple={true} />
+                        <li className="w-full">
+                            <label htmlFor="files" className="block mb-1 font-semibold text-gray-800">Files</label>
+                            <input
+                                type="file"
+                                ref={filesRef}
+                                name="files"
+                                multiple={true}
+                                className="block w-full text-sm text-gray-800 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-orange-500 file:text-white hover:file:bg-orange-600 transition-all"
+                            />
                         </li>
-                        <div className="flex justify-end w-full">
+
+                        <div className="flex justify-end w-full mt-4">
                             <button
-                                className="bg-green-600 text-white hover:bg-green-700 transition duration-300 py-2 px-4 rounded-md"
+                                className="bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-400 transition-all py-2 px-6 rounded-lg font-semibold"
                                 onClick={handleClickAdd}>
                                 ADD
                             </button>

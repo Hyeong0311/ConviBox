@@ -7,6 +7,7 @@ import {deleteOne, modifyOne} from "../../api/productAPI.ts"; // 경로 조정 �
 import React, { useState } from 'react';
 import LoadingComponent from "../../common/LoadingComponent.tsx";
 
+
 function AdminProductComponent() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -58,7 +59,29 @@ function AdminProductComponent() {
         formData.append("price", price.toString()); // 가격 추가
 
         if (image) {
+
             formData.append("files", image); // 파일 추가
+        } else {
+            // public 폴더에서 기본 이미지 로드
+            fetch('/no_Image.png') // public 폴더의 경로를 적어주세요
+                .then(response => {
+                    return response.blob(); // Blob으로 변환
+                })
+                .then(blob => {
+                    // Blob을 File 객체로 변환
+                    const defaultImageFile = new File([blob], 'no_Image.png', { type: 'image/png' });
+                    formData.append("files", defaultImageFile); // 기본 이미지 파일 추가
+
+                    // 이제 여기서 API 호출을 진행
+                    return modifyOne(formData, pno); // API 호출
+                })
+                .then(() => {
+                    setLoading(false); // 로딩 종료
+                })
+                .catch(error => {
+                    console.error("수정 실패:", error);
+                    setLoading(false); // 오류 발생 시 로딩 종료
+                });
         }
 
         modifyOne(formData, pno).then(() => {
