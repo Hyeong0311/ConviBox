@@ -31,7 +31,7 @@ export const postProduct = async (formData: IProduct): Promise<number> => {
 
 export const getList = async (): Promise<IProducts> => {
 
-    const res = await axios.get<IProducts>(`${host}/list`)
+    const res = await axios.get<IProducts>(`${host}/list?page=1&size=100`)
     console.log(res.data)
     return res.data
 
