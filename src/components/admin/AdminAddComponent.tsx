@@ -63,7 +63,7 @@ function AdminAddComponent() {
         <div className="flex items-center justify-center h-screen">
             {isModalOpen && <AddCompleteComponent message={'등록완료'} onClick={closeCallback} />}
             <div className="w-1/2 h-4/5 p-4">
-                <aside className="h-full p-4 bg-yellow-200 rounded-lg flex flex-col items-center justify-between">
+                <aside className="h-full p-4 bg-[#ffb400] rounded-lg flex flex-col items-center justify-between">
                     <p className='font-bold'>상품추가</p>
                     <ul className="flex flex-col items-center w-full">
 
