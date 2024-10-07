@@ -24,11 +24,18 @@ function ProductListComponent(): ReactElement {
 
             <div
                 className="min-w-[150px] max-w-[150px] bg-white shadow-lg rounded-lg p-4 min-h-[200px]"
-                onClick={() => productClick(product.pno)}>
+                onClick={() => productClick(product.pno)}
+            >
                 {product.uploadFileNames && product.uploadFileNames.length > 0 ? (
-                    <img src={`${host}${product.uploadFileNames[0]}`} alt={product.pname} className="w-full h-auto rounded-md" />
+                    <img
+                        src={`${host}${product.uploadFileNames[0]}`}
+                        alt={product.pname}
+                        className="w-full h-[150px] object-cover rounded-md"
+                    />
                 ) : (
-                    <div>No image available</div>
+                    <div className="w-full h-[150px] bg-gray-200 flex items-center justify-center rounded-md">
+                        No image available
+                    </div>
                 )}
                 <div className="mt-2 text-center">
                     <h3 className="text-gray-800 text-sm font-semibold truncate">{product.pname}</h3>
