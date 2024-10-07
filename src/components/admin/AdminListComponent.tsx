@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"; // Redux Dispatch 가져오기
 import { IProduct } from "../../types/product.ts";
 import { getList } from "../../api/productAPI.ts";
-import {setRecipeName, setDescription, setPrice, setKeywords, setPno} from "../../productSlice"; // 액션 임포트
+import { setPno, setRecipeName, setDescription, setPrice, setKeywords } from "../../productSlice"; // 액션 임포트
 
 function AdminListComponent() {
     const dispatch = useDispatch(); // Dispatch 초기화
