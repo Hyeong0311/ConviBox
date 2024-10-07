@@ -2,7 +2,7 @@ import axios from "axios";
 import {IProduct, IProducts} from "../types/product.ts";
 
 
-const host = 'http://1.255.178.102:8089/api/products'
+const host = 'http://localhost:8089/api/products'
 
 
 export const getSearchedList = async (query: string): Promise<IProducts> => {
@@ -40,6 +40,15 @@ export const getList = async (): Promise<IProducts> => {
 export const deleteOne = async (mno:number): Promise<{result:string}> => { // postman에서 삭제를 했을때 result:success라고 api에서 미리 설정되어있음
 
     const res = await axios.delete(`${host}/${mno}`)
+
+    console.log(res.data)
+
+    return res.data
+}
+
+export const modifyOne = async (formData: FormData, pno: number) => {
+
+    const res = await axios.put(`${host}/${pno}`, formData)
 
     return res.data
 }
