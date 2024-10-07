@@ -93,86 +93,86 @@ function ProductListComponent(): ReactElement {
             {!loading && <>
                 <div className="relative">
                     <h2 className="text-lg font-bold mb-4">3천원 이하</h2>
-                    <button
-                        onClick={() => scrollLeft(under3000Ref)}
-                        className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"
-                    >
-                        <img src="/icon-park-outline--left-c.svg" alt="left-arrow" className="w-full h-full" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => scrollLeft(under3000Ref)}*/}
+                    {/*    className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"*/}
+                    {/*>*/}
+                    {/*    <img src="/icon-park-outline--left-c.svg" alt="left-arrow" className="w-full h-full" />*/}
+                    {/*</button>*/}
                     <div className="flex space-x-4 overflow-x-auto pb-4" ref={under3000Ref}>
                         {under3000.map((product, index) => (
                             <ProductCard key={index} product={product} />
                         ))}
                     </div>
-                    <button
-                        onClick={() => scrollRight(under3000Ref)}
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"
-                    >
-                        <img src="/icon-park-outline--right-c.svg" alt="right-arrow" className="w-full h-full" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => scrollRight(under3000Ref)}*/}
+                    {/*    className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"*/}
+                    {/*>*/}
+                    {/*    <img src="/icon-park-outline--right-c.svg" alt="right-arrow" className="w-full h-full" />*/}
+                    {/*</button>*/}
                 </div>
 
                 <div className="relative">
                     <h2 className="text-lg font-bold mb-4">5천원 이하</h2>
-                    <button
-                        onClick={() => scrollLeft(over3000Ref)}
-                        className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"
-                    >
-                        <img src="/icon-park-outline--left-c.svg" alt="left-arrow" className="w-full h-full" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => scrollLeft(over3000Ref)}*/}
+                    {/*    className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"*/}
+                    {/*>*/}
+                    {/*    <img src="/icon-park-outline--left-c.svg" alt="left-arrow" className="w-full h-full" />*/}
+                    {/*</button>*/}
                     <div className="flex space-x-4 overflow-x-auto pb-4" ref={over3000Ref}>
                         {over3000.map((product, index) => (
                             <ProductCard key={index} product={product} />
                         ))}
                     </div>
-                    <button
-                        onClick={() => scrollRight(over3000Ref)}
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"
-                    >
-                        <img src="/icon-park-outline--right-c.svg" alt="right-arrow" className="w-full h-full" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => scrollRight(over3000Ref)}*/}
+                    {/*    className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"*/}
+                    {/*>*/}
+                    {/*    <img src="/icon-park-outline--right-c.svg" alt="right-arrow" className="w-full h-full" />*/}
+                    {/*</button>*/}
                 </div>
 
                 <div className="relative">
                     <h2 className="text-lg font-bold mb-4">1만원 이하</h2>
-                    <button
-                        onClick={() => scrollLeft(over5000Ref)}
-                        className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"
-                    >
-                        <img src="/icon-park-outline--left-c.svg" alt="left-arrow" className="w-full h-full" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => scrollLeft(over5000Ref)}*/}
+                    {/*    className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"*/}
+                    {/*>*/}
+                    {/*    <img src="/icon-park-outline--left-c.svg" alt="left-arrow" className="w-full h-full" />*/}
+                    {/*</button>*/}
                     <div className="flex space-x-4 overflow-x-auto pb-4" ref={over5000Ref}>
                         {over5000.map((product, index) => (
                             <ProductCard key={index} product={product} />
                         ))}
                     </div>
-                    <button
-                        onClick={() => scrollRight(over5000Ref)}
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"
-                    >
-                        <img src="/icon-park-outline--right-c.svg" alt="right-arrow" className="w-full h-full" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => scrollRight(over5000Ref)}*/}
+                    {/*    className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"*/}
+                    {/*>*/}
+                    {/*    <img src="/icon-park-outline--right-c.svg" alt="right-arrow" className="w-full h-full" />*/}
+                    {/*</button>*/}
                 </div>
 
                 <div className="relative">
                     <h2 className="text-lg font-bold mb-4">1만원 이상</h2>
-                    <button
-                        onClick={() => scrollLeft(over10000Ref)}
-                        className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"
-                    >
-                        <img src="/icon-park-outline--left-c.svg" alt="left-arrow" className="w-full h-full" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => scrollLeft(over10000Ref)}*/}
+                    {/*    className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"*/}
+                    {/*>*/}
+                    {/*    <img src="/icon-park-outline--left-c.svg" alt="left-arrow" className="w-full h-full" />*/}
+                    {/*</button>*/}
                     <div className="flex space-x-4 overflow-x-auto pb-4" ref={over10000Ref}>
                         {over10000.map((product, index) => (
                             <ProductCard key={index} product={product} />
                         ))}
                     </div>
-                    <button
-                        onClick={() => scrollRight(over10000Ref)}
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"
-                    >
-                        <img src="/icon-park-outline--right-c.svg" alt="right-arrow" className="w-full h-full" />
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => scrollRight(over10000Ref)}*/}
+                    {/*    className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 rounded-full w-12 h-12 flex items-center justify-center"*/}
+                    {/*>*/}
+                    {/*    <img src="/icon-park-outline--right-c.svg" alt="right-arrow" className="w-full h-full" />*/}
+                    {/*</button>*/}
                 </div>
             </>}
         </div>
