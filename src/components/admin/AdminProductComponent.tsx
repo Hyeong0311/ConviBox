@@ -25,6 +25,7 @@ function AdminProductComponent() {
 
     const [loading, setLoading] = useState(false);
     const [resultData, setResultData] = useState<string>('');
+    const [modalOpen, setModalOpen] = useState(false);
 
 
     const handleClickMoveAdd = () => {
@@ -91,33 +92,20 @@ function AdminProductComponent() {
         modifyOne(formData, pno).then(() => {
 
             setResultData(pno +'번이 수정 되었습니다.')
+            setModalOpen(true);
 
-            setTimeout(() => {
-                setLoading(false);
-                window.location.reload();
-            }, 300)
-
+            setLoading(false);
         });
     };
 
     const handleClickRemove = () => {
-        console.log(pno);
-        // 실제 삭제 API 호출
-
-        setTimeout(() => {
-
-            setLoading(false);
-        }, 300)
 
         deleteOne(pno).then(data => {
             console.log(data);
             setResultData(pno +'번이 삭제 되었습니다.')
+            setModalOpen(true)
 
-
-            setTimeout(() => {
-                setLoading(false)
-                window.location.reload();
-            },600)
+            setLoading(false)
 
         }).catch(error => {
             console.error("삭제 실패:", error);
@@ -127,21 +115,18 @@ function AdminProductComponent() {
 
     const closeCallback = () => {
 
-
         setResultData('')
+        setModalOpen(false);
 
-        navigate({ pathname: '/admin/management' });
-
+        window.location.reload();
     }
-
-
 
 
     return (
 
         <>
             {loading && <LoadingComponent></LoadingComponent>}
-            {resultData && <AddCompleteComponent message={resultData} onClick={closeCallback}/>}
+            {modalOpen && <AddCompleteComponent message={resultData} onClick={closeCallback}/>}
             <div className="w-2/3 p-4 h-full">
                 {/* 상단 버튼 */}
                 <div className="flex justify-between items-center mb-4">
