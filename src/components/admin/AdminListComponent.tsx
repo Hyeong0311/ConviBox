@@ -1,42 +1,43 @@
 import {useEffect, useState} from "react";
 import {IProduct} from "../../types/product.ts";
 import {getList} from "../../api/productAPI.ts";
+import {useDispatch} from "react-redux";
+import {useQuery} from "@tanstack/react-query";
+import {setProductDesc} from "../../store.ts";
 
 function AdminListComponent() {
 
     const [selectPrice, setSelectPrice] = useState("option0");
-    const [itemList, setItemList] = useState<IProduct[]>([]);
-    const [Productdesc, setProductDesc] = useState("");
+    // const [itemList, setItemList] = useState<IProduct[]>([]);
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        const fetchItems = async() => {
-            const data = await getList();
+    const { data: responseData = [] } = useQuery({
+        queryKey: ['products'],
+        queryFn: getList,
+    });
 
-            const filterItems = data.dtoList.filter((result) => {
-                switch (selectPrice) {
-                    case "option0":
-                        return result.price <= 3000
-                    case "option1":
-                        return result.price >= 3000 && result.price < 5000;
-                    case "option2":
-                        return result.price >= 5000 && result.price < 10000;
-                    case "option3":
-                        return result.price >= 10000;
-                    default:
-                        return true;
-                }
-            })
-            setItemList(filterItems)
+    const itemList = responseData.dtoList || [];
+
+
+    // @ts-ignore
+    const filteredItems = itemList.filter((result) => {
+        switch (selectPrice) {
+            case "option0":
+                return result.price <= 3000;
+            case "option1":
+                return result.price >= 3000 && result.price < 5000;
+            case "option2":
+                return result.price >= 5000 && result.price < 10000;
+            case "option3":
+                return result.price >= 10000;
+            default:
+                return true;
         }
-        fetchItems()
-    }, [selectPrice]);
+    });
 
-    const handleClickDesc = (item:IProduct) => {
-        setProductDesc(item.pdesc)
-        console.log(Productdesc)
-    }
-
-
+    const handleClickDesc = (item: IProduct) => {
+        dispatch(setProductDesc(item.pdesc));
+    };
 
 
     return (
@@ -58,8 +59,8 @@ function AdminListComponent() {
             <aside className="h-3/4 p-4 bg-yellow-200 rounded-lg flex flex-col items-center justify-center">
                 <p className='font-bold'>List Sidebar</p>
                 <ul className="flex flex-col items-center">
-                    {itemList.length > 0 ? (
-                        itemList.map((item) => (
+                    {filteredItems.length > 0 ? (
+                        filteredItems.map((item) => (
                             <li key={item.pno} onClick={() => handleClickDesc(item)}>{item.pname}</li>
                         ))
                     ) : (
