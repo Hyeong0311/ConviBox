@@ -36,3 +36,10 @@ export const getList = async (): Promise<IProducts> => {
     return res.data
 
 }
+
+export const deleteOne = async (mno:number): Promise<{result:string}> => { // postman에서 삭제를 했을때 result:success라고 api에서 미리 설정되어있음
+
+    const res = await axios.delete(`${host}/${mno}`)
+
+    return res.data
+}
