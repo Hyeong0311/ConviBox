@@ -1,15 +1,35 @@
-import { useNavigate } from "react-router-dom";
-import { startTransition, useState } from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {startTransition} from "react";
-import AdminListComponent from "./AdminListComponent.tsx";
 import {useSelector} from "react-redux";
+import {selectSelectedItem} from "../../slice/ProductSlice.ts";
 
 function AdminProductComponent() {
 
     const navigate = useNavigate();
-    const productDesc = useSelector((state) => state.product.productDesc);
+    const selectedItem = useSelector(selectSelectedItem)
 
+    const [productDetails, setProductDetails] = useState({
+        recipeName: "",
+        description: "",
+        price: "",
+        keywords: "",
+        image: null as File | null,
+    });
+
+    useEffect(() => {
+        if (selectedItem) {
+            setProductDetails({
+                recipeName: selectedItem.name,
+                description: selectedItem.desc,
+                price: String(selectedItem.price),
+                keywords: selectedItem.keyword,
+                image: null,
+            });
+        }
+    }, [selectedItem]);
+
+    const { recipeName, description, price, keywords, image } = productDetails;
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
@@ -17,28 +37,46 @@ function AdminProductComponent() {
         });
     };
 
-    const [recipeName, setRecipeName] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
-    const [keywords, setKeywords] = useState("");
-    const [image, setImage] = useState<File | null>(null);
+
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setProductDetails((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setImage(e.target.files[0]);
+            setProductDetails((prev) => ({
+                ...prev,
+                image: e.target.files[0],
+            }));
         }
     };
 
     const handleRemoveImage = () => {
-        setImage(null);
+        setProductDetails((prev) => ({
+            ...prev,
+            image: null,
+        }));
     };
 
-    return (
+    const demobutton = () => {
+        console.log(recipeName)
+    }
 
+    return (
         <div className="w-2/3 p-4 h-full">
             {/* 상단 버튼 */}
             <div className="flex justify-between items-center mb-4">
                 <h2 className='font-bold text-xl'>Product Manager</h2>
+                <button
+                onClick={() => demobutton()}>
+
+                    demo
+                </button>
                 <button
                     className="bg-green-600 text-white hover:bg-blue-600 transition duration-300 py-2 px-4 rounded-md"
                     onClick={handleClickMoveAdd}>
@@ -56,8 +94,9 @@ function AdminProductComponent() {
                         <label className="font-semibold text-gray-800">Recipe Name:</label>
                         <input
                             type="text"
+                            name="recipeName" // name 속성 추가
                             value={recipeName}
-                            onChange={(e) => setRecipeName(e.target.value)}
+                            onChange={handleInputChange}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter recipe name"
                         />
@@ -67,8 +106,9 @@ function AdminProductComponent() {
                     <li className="w-full">
                         <label className="font-semibold text-gray-800">Description:</label>
                         <textarea
+                            name="description" // name 속성 추가
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={handleInputChange}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter recipe description"
                             rows={4}
@@ -79,13 +119,13 @@ function AdminProductComponent() {
                     <li className="w-full">
                         <label className="font-semibold text-gray-800">Price:</label>
                         <input
-                            type="text" // type을 text로 변경
+                            type="text"
+                            name="price" // name 속성 추가
                             value={price}
                             onChange={(e) => {
-                                // 입력값이 숫자일 경우만 상태를 업데이트
                                 const value = e.target.value;
                                 if (/^\d*$/.test(value)) {
-                                    setPrice(value);
+                                    handleInputChange(e);
                                 }
                             }}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
@@ -98,8 +138,9 @@ function AdminProductComponent() {
                         <label className="font-semibold text-gray-800">Keywords:</label>
                         <input
                             type="text"
+                            name="keywords" // name 속성 추가
                             value={keywords}
-                            onChange={(e) => setKeywords(e.target.value)}
+                            onChange={handleInputChange}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter keywords (comma separated)"
                         />

@@ -1,12 +1,15 @@
 import {useEffect, useState} from "react";
 import {IProduct} from "../../types/product.ts";
 import {getList} from "../../api/productAPI.ts";
+import {useDispatch} from "react-redux";
+import {setSelectedItem} from "../../slice/ProductSlice.ts";
 
 function AdminListComponent() {
 
     const [selectPrice, setSelectPrice] = useState("option0");
     const [itemList, setItemList] = useState<IProduct[]>([]);
-    const [Productdesc, setProductDesc] = useState("");
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         const fetchItems = async() => {
@@ -31,10 +34,16 @@ function AdminListComponent() {
         fetchItems()
     }, [selectPrice]);
 
-    const handleClickDesc = (item:IProduct) => {
-        setProductDesc(item.pdesc)
-        console.log(Productdesc)
-    }
+    const handleClickItem = (item: IProduct) => {
+        // 선택된 아이템을 스토어에 저장
+        dispatch(setSelectedItem({
+            name: item.pname,
+            desc: item.pdesc,
+            price: item.price,
+            keyword: item.keyword,
+            image: item.image
+        }));
+    };
 
 
 
@@ -66,7 +75,7 @@ function AdminListComponent() {
                         itemList.map((item) => (
                             <li
                                 key={item.pno}
-                                onClick={() => handleClickDesc(item)}
+                                onClick={() => handleClickItem(item)}
                                 className="w-full p-3 bg-white rounded-xl shadow-lg text-gray-800 cursor-pointer text-center transition-all transform hover:scale-105 hover:bg-[#f8c300] hover:shadow-xl hover:text-white"
                             >
                                 {item.pname}

@@ -1,25 +1,15 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-// 슬라이스 생성
-const productSlice = createSlice({
-    name: 'product',
-    initialState: {
-        productDesc: "",
-    },
-    reducers: {
-        setProductDesc: (state, action) => {
-            state.productDesc = action.payload;
-        },
-    },
-});
-
-export const { setProductDesc } = productSlice.actions;
-export const selectProductDesc = (state) => state.product.productDesc;
+import { configureStore } from '@reduxjs/toolkit';
+import ProductSlice from "./slice/ProductSlice.ts";
 
 const store = configureStore({
     reducer: {
-        product: productSlice.reducer,
-    },
-});
+        product: ProductSlice
+    }
+})
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
 
 export default store;
