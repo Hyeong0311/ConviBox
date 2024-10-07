@@ -1,13 +1,16 @@
 import { ReactElement, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";  // useNavigate import
 
 interface CartItem {
     pname: string;
     price: number;
     pdesc: string;
+    pno: string;  // 레시피 상세 페이지로 이동하기 위한 pno 필드 추가
 }
 
 function MyCartComponent(): ReactElement {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const navigate = useNavigate();  // useNavigate 사용
 
     // 로컬 스토리지에서 장바구니 정보를 가져옴
     useEffect(() => {
@@ -22,6 +25,11 @@ function MyCartComponent(): ReactElement {
         localStorage.setItem('cart', JSON.stringify(updatedCart));  // 로컬 스토리지에 업데이트된 장바구니 정보 저장
     };
 
+    // 레시피 디테일 페이지로 이동하는 함수
+    const handleRecipeClick = (pno: string) => {
+        navigate(`/recipe/${pno}`);  // 해당 pno의 레시피 디테일 페이지로 이동
+    };
+
     return (
         <div className="w-full max-w-xl mx-auto mt-10 p-5 space-y-6">
             {cartItems.length > 0 ? (
@@ -30,7 +38,12 @@ function MyCartComponent(): ReactElement {
                         <div className="flex justify-between items-center">
                             {/* 좌측에 상품명 및 설명 */}
                             <div>
-                                <div className="font-bold">{item.pname}</div>
+                                <div
+                                    className="font-bold cursor-pointer"  // 클릭 가능하게 스타일 추가
+                                    onClick={() => handleRecipeClick(item.pno)}  // 클릭 시 레시피 디테일로 이동
+                                >
+                                    {item.pname}
+                                </div>
                                 <div className="text-gray-500">{item.pdesc}</div>
                             </div>
 
