@@ -1,51 +1,51 @@
 import {useEffect, useState} from "react";
 import {IProduct} from "../../types/product.ts";
 import {getList} from "../../api/productAPI.ts";
-import {useDispatch} from "react-redux";
-import {useQuery} from "@tanstack/react-query";
-import {setProductDesc} from "../../store.ts";
 
 function AdminListComponent() {
 
     const [selectPrice, setSelectPrice] = useState("option0");
-    // const [itemList, setItemList] = useState<IProduct[]>([]);
-    const dispatch = useDispatch();
+    const [itemList, setItemList] = useState<IProduct[]>([]);
+    const [Productdesc, setProductDesc] = useState("");
 
-    const { data: responseData = [] } = useQuery({
-        queryKey: ['products'],
-        queryFn: getList,
-    });
+    useEffect(() => {
+        const fetchItems = async() => {
+            const data = await getList();
 
-    const itemList = responseData.dtoList || [];
-
-
-    // @ts-ignore
-    const filteredItems = itemList.filter((result) => {
-        switch (selectPrice) {
-            case "option0":
-                return result.price <= 3000;
-            case "option1":
-                return result.price >= 3000 && result.price < 5000;
-            case "option2":
-                return result.price >= 5000 && result.price < 10000;
-            case "option3":
-                return result.price >= 10000;
-            default:
-                return true;
+            const filterItems = data.dtoList.filter((result) => {
+                switch (selectPrice) {
+                    case "option0":
+                        return result.price <= 3000
+                    case "option1":
+                        return result.price >= 3000 && result.price < 5000;
+                    case "option2":
+                        return result.price >= 5000 && result.price < 10000;
+                    case "option3":
+                        return result.price >= 10000;
+                    default:
+                        return true;
+                }
+            })
+            setItemList(filterItems)
         }
-    });
+        fetchItems()
+    }, [selectPrice]);
 
-    const handleClickDesc = (item: IProduct) => {
-        dispatch(setProductDesc(item.pdesc));
-    };
+    const handleClickDesc = (item:IProduct) => {
+        setProductDesc(item.pdesc)
+        console.log(Productdesc)
+    }
+
+
 
 
     return (
         <div className="w-1/4 h-full p-4">
-            <aside className="h-1/8 p-4 bg-yellow-100 mb-4 rounded-lg">
-                <p className='font-bold'>가격선택</p>
+            {/* 가격선택 부분 */}
+            <aside className="h-1/8 p-4 bg-[#f8c300] mb-4 rounded-2xl shadow-lg">
+                <p className='font-bold text-gray-800 text-lg'>가격선택</p>
                 <select
-                    className="p-2 border rounded w-full"
+                    className="p-3 border border-gray-300 rounded-xl w-full focus:outline-none focus:ring-4 focus:ring-yellow-400 transition-all"
                     value={selectPrice}
                     onChange={(e) => setSelectPrice(e.target.value)} // 선택 변경 시 상태 업데이트
                 >
@@ -56,15 +56,24 @@ function AdminListComponent() {
                 </select>
             </aside>
 
-            <aside className="h-3/4 p-4 bg-yellow-200 rounded-lg flex flex-col items-center justify-center">
-                <p className='font-bold'>List Sidebar</p>
-                <ul className="flex flex-col items-center">
-                    {filteredItems.length > 0 ? (
-                        filteredItems.map((item) => (
-                            <li key={item.pno} onClick={() => handleClickDesc(item)}>{item.pname}</li>
+            {/* 리스트 사이드바 */}
+            <aside className="h-3/4 p-4 bg-[#ffb400] rounded-2xl shadow-lg flex flex-col items-center justify-center">
+                <p className='font-bold text-gray-800 text-lg mb-4'>List Sidebar</p>
+
+                {/* 스크롤 가능 리스트 */}
+                <ul className="flex flex-col items-center w-full space-y-3 overflow-y-scroll h-full p-2">
+                    {itemList.length > 0 ? (
+                        itemList.map((item) => (
+                            <li
+                                key={item.pno}
+                                onClick={() => handleClickDesc(item)}
+                                className="w-full p-3 bg-white rounded-xl shadow-lg text-gray-800 cursor-pointer text-center transition-all transform hover:scale-105 hover:bg-[#f8c300] hover:shadow-xl hover:text-white"
+                            >
+                                {item.pname}
+                            </li>
                         ))
                     ) : (
-                        <li>No items found</li>
+                        <li className="text-gray-500">No items found</li>
                     )}
                 </ul>
             </aside>
