@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"; // Redux Dispatch 가져오기
 import { IProduct } from "../../types/product.ts";
 import { getList } from "../../api/productAPI.ts";
-import { setRecipeName, setDescription, setPrice, setKeywords } from "../../productSlice"; // 액션 임포트
+import {setRecipeName, setDescription, setPrice, setKeywords, setPno} from "../../productSlice"; // 액션 임포트
 
 function AdminListComponent() {
     const dispatch = useDispatch(); // Dispatch 초기화
@@ -33,8 +33,7 @@ function AdminListComponent() {
     }, [selectPrice]);
 
     const handleClickDesc = (item: IProduct) => {
-        console.log(dispatch(setDescription(item.pno)))
-        dispatch(setDescription(item.pno))
+        dispatch(setPno(item.pno))
         dispatch(setDescription(item.pdesc)); // 설명 저장
         dispatch(setRecipeName(item.pname)); // 이름 저장
         dispatch(setPrice(item.price.toString())); // 가격 저장
