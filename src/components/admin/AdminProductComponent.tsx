@@ -6,6 +6,7 @@ import {IRootState} from "../../types/product.ts";
 import {deleteOne, modifyOne} from "../../api/productAPI.ts"; // 경로 조정 필요
 import React, { useState } from 'react';
 import LoadingComponent from "../../common/LoadingComponent.tsx";
+import AddCompleteComponent from "../../common/AddCompleteComponent.tsx";
 
 
 function AdminProductComponent() {
@@ -21,7 +22,10 @@ function AdminProductComponent() {
     // 로컬 상태로 이미지 관리
     const [image, setImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+
     const [loading, setLoading] = useState(false);
+    const [resultData, setResultData] = useState<string>('');
+
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
@@ -86,9 +90,11 @@ function AdminProductComponent() {
 
         modifyOne(formData, pno).then(() => {
 
-            setTimeout(() => {
+            setResultData(pno +'번이 수정 되었습니다.')
 
+            setTimeout(() => {
                 setLoading(false);
+                window.location.reload();
             }, 300)
 
         });
@@ -97,19 +103,45 @@ function AdminProductComponent() {
     const handleClickRemove = () => {
         console.log(pno);
         // 실제 삭제 API 호출
-        deleteOne(pno).then(response => {
-            // 삭제 후 필요한 작업
-            console.log(response);
+
+        setTimeout(() => {
+
+            setLoading(false);
+        }, 300)
+
+        deleteOne(pno).then(data => {
+            console.log(data);
+            setResultData(pno +'번이 삭제 되었습니다.')
+
+
+            setTimeout(() => {
+                setLoading(false)
+                window.location.reload();
+            },600)
+
         }).catch(error => {
             console.error("삭제 실패:", error);
+            setLoading(false);
         });
     };
+
+    const closeCallback = () => {
+
+
+        setResultData('')
+
+        navigate({ pathname: '/admin/management' });
+
+    }
+
+
+
 
     return (
 
         <>
             {loading && <LoadingComponent></LoadingComponent>}
-
+            {resultData && <AddCompleteComponent message={resultData} onClick={closeCallback}/>}
             <div className="w-2/3 p-4 h-full">
                 {/* 상단 버튼 */}
                 <div className="flex justify-between items-center mb-4">
