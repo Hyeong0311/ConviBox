@@ -61,7 +61,6 @@ function AdminListComponent() {
 
             {/* 리스트 사이드바 */}
             <aside className="h-3/4 p-4 bg-[#ffb400] rounded-2xl shadow-lg flex flex-col items-center justify-center">
-                <p className='font-bold text-gray-800 text-lg mb-4'>List Sidebar</p>
 
                 {/* 스크롤 가능 리스트 */}
                 <ul className="flex flex-col items-center w-full space-y-3 overflow-y-scroll h-full p-2">

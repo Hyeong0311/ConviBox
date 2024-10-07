@@ -1,7 +1,5 @@
 
 export interface IProduct {
-    image: any
-
     pno: number
     pname: string
     pdesc: string

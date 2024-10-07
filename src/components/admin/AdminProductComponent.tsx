@@ -12,7 +12,6 @@ function AdminProductComponent() {
     const description = useSelector((state: IRootState) => state.product.pdesc);
     const price = useSelector((state: IRootState) => state.product.price);
     const keywords = useSelector((state: IRootState) => state.product.keyword);
-    const image = useSelector((state: IRootState) => state.product.image);
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
@@ -36,7 +35,6 @@ function AdminProductComponent() {
         console.log(description)
         console.log(price)
         console.log(keywords)
-        console.log(image)
     }
 
 
