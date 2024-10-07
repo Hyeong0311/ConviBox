@@ -28,3 +28,11 @@ export const postProduct = async (formData: IProduct): Promise<number> => {
 
     return Number(res.data)
 }
+
+export const getList = async (): Promise<IProducts> => {
+
+    const res = await axios.get<IProducts>(`${host}/list`)
+    console.log(res.data)
+    return res.data
+
+}
