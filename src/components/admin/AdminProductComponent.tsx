@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { startTransition, useState } from "react";
+import {useNavigate} from "react-router-dom";
+import {startTransition} from "react";
+import AdminListComponent from "./AdminListComponent.tsx";
+import {useSelector} from "react-redux";
 
 function AdminProductComponent() {
+
     const navigate = useNavigate();
+    const productDesc = useSelector((state) => state.product.productDesc);
+
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
@@ -27,6 +34,7 @@ function AdminProductComponent() {
     };
 
     return (
+
         <div className="w-2/3 p-4 h-full">
             {/* 상단 버튼 */}
             <div className="flex justify-between items-center mb-4">
