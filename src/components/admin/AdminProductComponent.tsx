@@ -6,7 +6,6 @@ function AdminProductComponent() {
 
     const navigate = useNavigate();
 
-    const [Productdesc] = AdminListComponent();
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
@@ -14,9 +13,9 @@ function AdminProductComponent() {
         });
     }
 
-    const handleDemo = () => {
-        console.log(Productdesc)
-    }
+    // const handleDemo = () => {
+    //     console.log(Productdesc)
+    // }
 
     return (
 
@@ -28,7 +27,6 @@ function AdminProductComponent() {
                 onClick={() => handleClickMoveAdd()}>
                     ADD
                 </button>
-                <button onClick={() => handleDemo()}>demo</button>
             </div>
 
             <aside className="h-full p-4 bg-yellow-200 rounded-lg flex flex-col items-center justify-center">
