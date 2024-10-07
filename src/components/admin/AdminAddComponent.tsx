@@ -19,7 +19,6 @@ function AdminAddComponent() {
     const navigate = useNavigate();
 
 
-
     const addMutation = useMutation({
         mutationFn: (formData) => postProduct(formData),
         onSuccess: () => {
