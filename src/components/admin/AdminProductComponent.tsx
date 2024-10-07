@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { startTransition, useState } from "react";
-import {useNavigate} from "react-router-dom";
-import {startTransition} from "react";
-import AdminListComponent from "./AdminListComponent.tsx";
 import {useSelector} from "react-redux";
 
 function AdminProductComponent() {
