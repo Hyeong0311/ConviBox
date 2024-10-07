@@ -87,7 +87,11 @@ function RecipeDetailComponent(): ReactElement {
 
                     {/* 모달 컴포넌트 */}
                     <ProductAddModal
-                        message="레시피가 장바구니에 추가되었습니다!"
+                        message={
+                            <>
+                                레시피가 장바구니에 <br />추가되었습니다!
+                            </>
+                        }
                         isOpen={isModalOpen}
                         onClose={handleCloseModal}  // 모달 닫기 핸들러
                     />
