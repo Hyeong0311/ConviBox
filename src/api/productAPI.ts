@@ -43,3 +43,10 @@ export const deleteOne = async (mno:number): Promise<{result:string}> => { // po
 
     return res.data
 }
+
+export const modifyOne = async (formData: FormData, pno: number) => {
+
+    const res = await axios.put(`${host}/${pno}`, formData)
+
+    return res.data
+}
