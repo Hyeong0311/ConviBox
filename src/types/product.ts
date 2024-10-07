@@ -1,7 +1,6 @@
 
 export interface IProduct {
-    image: any
-    pno: number | null
+    pno: number
     pname: string
     pdesc: string
     price: number
@@ -16,6 +15,5 @@ export interface IProducts {
 }
 
 export interface IRootState {
-    pno: number;
     product: IProduct;
 }

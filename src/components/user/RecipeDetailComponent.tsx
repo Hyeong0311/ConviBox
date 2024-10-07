@@ -67,8 +67,6 @@ function RecipeDetailComponent(): ReactElement {
 
                     {/* 필요한 재료 및 조리 방법 */}
                     <div className="bg-white p-5 rounded-lg shadow-md space-y-3">
-                        <div className="font-bold text-lg">필요 재료</div>
-                        <div className="text-gray-700">{product.pname}</div>
                         <div className="font-bold text-lg">조리 방법</div>
                         <div className="text-gray-700 whitespace-pre-wrap">{product.pdesc}</div>
                     </div>
