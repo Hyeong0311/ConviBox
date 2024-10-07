@@ -1,5 +1,6 @@
 
 export interface IProduct {
+    image: any
 
     pno: number
     pname: string
@@ -13,4 +14,8 @@ export interface IProduct {
 export interface IProducts {
 
     dtoList: IProduct[]
+}
+
+export interface IRootState {
+    product: IProduct;
 }

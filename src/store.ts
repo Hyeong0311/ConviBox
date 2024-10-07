@@ -1,25 +1,12 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-// 슬라이스 생성
-const productSlice = createSlice({
-    name: 'product',
-    initialState: {
-        productDesc: "",
-    },
-    reducers: {
-        setProductDesc: (state, action) => {
-            state.productDesc = action.payload;
-        },
-    },
-});
-
-export const { setProductDesc } = productSlice.actions;
-export const selectProductDesc = (state) => state.product.productDesc;
+import { configureStore } from '@reduxjs/toolkit';
+import productReducer from './productSlice';
 
 const store = configureStore({
     reducer: {
-        product: productSlice.reducer,
+        product: productReducer,
     },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
 
 export default store;

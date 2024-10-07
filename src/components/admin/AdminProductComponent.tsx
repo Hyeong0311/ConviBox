@@ -1,12 +1,18 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { startTransition, useState } from "react";
-import {useSelector} from "react-redux";
+import { startTransition } from "react";
+import { setRecipeName, setDescription, setPrice, setKeywords, setImage, clearImage } from '../../productSlice';
+import {IRootState} from "../../types/product.ts"; // 경로 조정 필요
 
 function AdminProductComponent() {
-
     const navigate = useNavigate();
-    const productDesc = useSelector((state) => state.product.productDesc);
+    const dispatch = useDispatch();
 
+    const recipeName = useSelector((state: IRootState) => state.product.pname);
+    const description = useSelector((state: IRootState) => state.product.pdesc);
+    const price = useSelector((state: IRootState) => state.product.price);
+    const keywords = useSelector((state: IRootState) => state.product.keyword);
+    const image = useSelector((state: IRootState) => state.product.image);
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
@@ -14,24 +20,27 @@ function AdminProductComponent() {
         });
     };
 
-    const [recipeName, setRecipeName] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
-    const [keywords, setKeywords] = useState("");
-    const [image, setImage] = useState<File | null>(null);
-
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setImage(e.target.files[0]);
+            dispatch(setImage(e.target.files[0]));
         }
     };
 
     const handleRemoveImage = () => {
-        setImage(null);
+        dispatch(clearImage());
     };
 
-    return (
+    const handleClickModify = () => {
 
+        console.log(recipeName)
+        console.log(description)
+        console.log(price)
+        console.log(keywords)
+        console.log(image)
+    }
+
+
+    return (
         <div className="w-2/3 p-4 h-full">
             {/* 상단 버튼 */}
             <div className="flex justify-between items-center mb-4">
@@ -54,7 +63,7 @@ function AdminProductComponent() {
                         <input
                             type="text"
                             value={recipeName}
-                            onChange={(e) => setRecipeName(e.target.value)}
+                            onChange={(e) => dispatch(setRecipeName(e.target.value))}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter recipe name"
                         />
@@ -65,7 +74,7 @@ function AdminProductComponent() {
                         <label className="font-semibold text-gray-800">Description:</label>
                         <textarea
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={(e) => dispatch(setDescription(e.target.value))}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter recipe description"
                             rows={4}
@@ -76,13 +85,12 @@ function AdminProductComponent() {
                     <li className="w-full">
                         <label className="font-semibold text-gray-800">Price:</label>
                         <input
-                            type="text" // type을 text로 변경
+                            type="text"
                             value={price}
                             onChange={(e) => {
-                                // 입력값이 숫자일 경우만 상태를 업데이트
                                 const value = e.target.value;
                                 if (/^\d*$/.test(value)) {
-                                    setPrice(value);
+                                    dispatch(setPrice(value));
                                 }
                             }}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
@@ -96,7 +104,7 @@ function AdminProductComponent() {
                         <input
                             type="text"
                             value={keywords}
-                            onChange={(e) => setKeywords(e.target.value)}
+                            onChange={(e) => dispatch(setKeywords(e.target.value))}
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:ring-4 focus:ring-yellow-400 transition-all"
                             placeholder="Enter keywords (comma separated)"
                         />
@@ -129,7 +137,9 @@ function AdminProductComponent() {
             {/* 하단 버튼 */}
             <div className="flex justify-end mt-4">
                 <button
-                    className="bg-blue-600 text-white hover:bg-blue-700 transition duration-300 py-2 px-4 rounded-md mr-2">
+                    className="bg-blue-600 text-white hover:bg-blue-700 transition duration-300 py-2 px-4 rounded-md mr-2"
+                    onClick={handleClickModify}
+                >
                     Modify
                 </button>
                 <button className="bg-red-600 text-white hover:bg-red-700 transition duration-300 py-2 px-4 rounded-md">
