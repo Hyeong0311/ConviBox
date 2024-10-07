@@ -15,19 +15,36 @@ function MyCartComponent(): ReactElement {
         setCartItems(storedCart);
     }, []);
 
+    // 특정 아이템을 삭제하는 함수
+    const handleRemoveItem = (index: number) => {
+        const updatedCart = cartItems.filter((_, i) => i !== index);  // 해당 인덱스의 아이템을 제외한 새로운 배열 생성
+        setCartItems(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));  // 로컬 스토리지에 업데이트된 장바구니 정보 저장
+    };
+
     return (
         <div className="w-full max-w-xl mx-auto mt-10 p-5 space-y-6">
             {cartItems.length > 0 ? (
                 cartItems.map((item, index) => (
                     <div key={index} className="bg-white p-5 rounded-lg shadow-md space-y-3">
                         <div className="flex justify-between items-center">
+                            {/* 좌측에 상품명 및 설명 */}
                             <div>
                                 <div className="font-bold">{item.pname}</div>
                                 <div className="text-gray-500">{item.pdesc}</div>
                             </div>
-                            <div className="text-xl font-bold">{item.price}원</div>
+
+                            {/* 우측에 가격과 삭제 버튼 */}
+                            <div className="flex items-center space-x-4">
+                                <div className="text-xl font-bold">{item.price}원</div>
+                                <button
+                                    className="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center"
+                                    onClick={() => handleRemoveItem(index)}
+                                >
+                                    -
+                                </button>
+                            </div>
                         </div>
-                        <button className="text-red-500 font-bold">-</button>
                     </div>
                 ))
             ) : (
