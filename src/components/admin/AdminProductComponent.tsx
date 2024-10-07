@@ -41,7 +41,7 @@ function AdminProductComponent() {
 
     const handleClickRemove = () => {
 
-        console.log(setPno)
+        console.log(pno)
     }
 
     return (
@@ -123,17 +123,17 @@ function AdminProductComponent() {
                             className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-yellow-400 transition-all"
                             accept="image/*"
                         />
-                        {image && (
-                            <div className="mt-2">
-                                <p className="text-sm text-gray-600">Selected file: {image.name}</p>
-                                <button
-                                    onClick={handleRemoveImage}
-                                    className="mt-2 bg-red-600 text-white px-3 py-2 rounded-md transition duration-300 hover:bg-red-700"
-                                >
-                                    Clear Image
-                                </button>
-                            </div>
-                        )}
+                        {/*{image && (*/}
+                        {/*    <div className="mt-2">*/}
+                        {/*        <p className="text-sm text-gray-600">Selected file: {image.name}</p>*/}
+                        {/*        <button*/}
+                        {/*            onClick={handleRemoveImage}*/}
+                        {/*            className="mt-2 bg-red-600 text-white px-3 py-2 rounded-md transition duration-300 hover:bg-red-700"*/}
+                        {/*        >*/}
+                        {/*            Clear Image*/}
+                        {/*        </button>*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
                     </li>
                 </ul>
             </aside>
