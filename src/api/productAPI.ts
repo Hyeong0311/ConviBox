@@ -41,5 +41,7 @@ export const deleteOne = async (mno:number): Promise<{result:string}> => { // po
 
     const res = await axios.delete(`${host}/${mno}`)
 
+    console.log(res.data)
+
     return res.data
 }

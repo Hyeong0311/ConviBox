@@ -1,12 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { startTransition } from "react";
-import { setPno, setRecipeName, setDescription, setPrice, setKeywords, setImage, clearImage } from '../../productSlice';
+import {startTransition} from "react";
+import { setRecipeName, setDescription, setPrice, setKeywords, setImage, clearImage } from '../../productSlice';
 import {IRootState} from "../../types/product.ts";
-import {deleteOne} from "../../api/productAPI.ts"; // 경로 조정 필요
+import {deleteOne} from "../../api/productAPI.ts";
 
 function AdminProductComponent() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const pno = useSelector((state: IRootState) => state.product.pno);
@@ -14,6 +13,9 @@ function AdminProductComponent() {
     const description = useSelector((state: IRootState) => state.product.pdesc);
     const price = useSelector((state: IRootState) => state.product.price);
     const keywords = useSelector((state: IRootState) => state.product.keyword);
+    const navigate = useNavigate();
+
+
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
@@ -42,7 +44,11 @@ function AdminProductComponent() {
     const handleClickRemove = () => {
 
         console.log(pno)
+        deleteOne(Number(pno)).then(data => {
+
+    })
     }
+
 
     return (
         <div className="w-2/3 p-4 h-full">
