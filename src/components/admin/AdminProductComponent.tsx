@@ -1,13 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { startTransition } from "react";
-import { setRecipeName, setDescription, setPrice, setKeywords, setImage, clearImage } from '../../productSlice';
-import {IRootState} from "../../types/product.ts"; // 경로 조정 필요
+import { setPno, setRecipeName, setDescription, setPrice, setKeywords, setImage, clearImage } from '../../productSlice';
+import {IRootState} from "../../types/product.ts";
+import {deleteOne} from "../../api/productAPI.ts"; // 경로 조정 필요
 
 function AdminProductComponent() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const pno = useSelector((state: IRootState) => state.product.pno);
     const recipeName = useSelector((state: IRootState) => state.product.pname);
     const description = useSelector((state: IRootState) => state.product.pdesc);
     const price = useSelector((state: IRootState) => state.product.price);
@@ -39,6 +41,10 @@ function AdminProductComponent() {
         console.log(image)
     }
 
+    const handleClickRemove = () => {
+
+        console.log(setPno)
+    }
 
     return (
         <div className="w-2/3 p-4 h-full">
@@ -142,7 +148,9 @@ function AdminProductComponent() {
                 >
                     Modify
                 </button>
-                <button className="bg-red-600 text-white hover:bg-red-700 transition duration-300 py-2 px-4 rounded-md">
+                <button className="bg-red-600 text-white hover:bg-red-700 transition duration-300 py-2 px-4 rounded-md"
+                    onClick={() => handleClickRemove()}
+                >
                     Delete
                 </button>
             </div>

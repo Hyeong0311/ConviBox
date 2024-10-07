@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ProductState {
+    pno : number;
     pname: string;
     pdesc: string;
     price: string;
@@ -9,6 +10,7 @@ interface ProductState {
 }
 
 const initialState: ProductState = {
+    pno : 0,
     pname: '',
     pdesc: '',
     price: '',
@@ -20,6 +22,9 @@ const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
+        setPno(state, action: PayloadAction<number>) {
+            state.pno = action.payload;
+        },
         setRecipeName(state, action: PayloadAction<string>) {
             state.pname = action.payload;
         },
@@ -42,6 +47,7 @@ const productSlice = createSlice({
 });
 
 export const {
+    setPno,
     setRecipeName,
     setDescription,
     setPrice,

@@ -33,6 +33,8 @@ function AdminListComponent() {
     }, [selectPrice]);
 
     const handleClickDesc = (item: IProduct) => {
+        console.log(dispatch(setDescription(item.pno)))
+        dispatch(setDescription(item.pno))
         dispatch(setDescription(item.pdesc)); // 설명 저장
         dispatch(setRecipeName(item.pname)); // 이름 저장
         dispatch(setPrice(item.price.toString())); // 가격 저장
