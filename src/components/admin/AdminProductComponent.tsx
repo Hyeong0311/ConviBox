@@ -1,15 +1,23 @@
 import {useNavigate} from "react-router-dom";
 import {startTransition} from "react";
+import AdminListComponent from "./AdminListComponent.tsx";
 
 function AdminProductComponent() {
 
     const navigate = useNavigate();
+
+    const [Productdesc] = AdminListComponent();
 
     const handleClickMoveAdd = () => {
         startTransition(() => {
             navigate("/admin/add");
         });
     }
+
+    const handleDemo = () => {
+        console.log(Productdesc)
+    }
+
     return (
 
         <div className="w-2/3 p-4 h-full">
@@ -20,6 +28,7 @@ function AdminProductComponent() {
                 onClick={() => handleClickMoveAdd()}>
                     ADD
                 </button>
+                <button onClick={() => handleDemo()}>demo</button>
             </div>
 
             <aside className="h-full p-4 bg-yellow-200 rounded-lg flex flex-col items-center justify-center">
